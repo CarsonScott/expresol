@@ -6,44 +6,38 @@ An easy-to-use python library for creating, translating and executing statements
 
 __EXAMPLE CODE__:
 
-- import library
+- import expresol library
         
         from expresol import Memory, Parser
 
-- create memory with 10 elements
+- create memory with a capacity of 10 elements
 
         memory = Memory(10)
 
-- store functions and data in memory
+- store values and functions, along with grammar labels, in memory
 
-        memory.set_data(0, AND)
-        memory.set_data(1, OR)
-        memory.set_data(2, True)
-        memory.set_data(3, True)
-        memory.set_data(4, False)
+        memory.set_data(0, True)
+        memory.set_data(1, True)
+        memory.set_data(2, AND)
 
-- store grammatical labels in memory
+        memory.set_data(4, 'open')
+        memory.set_data(5, 'close')
+        memory.set_data(6, 'end')
 
-        memory.set_data(5, 'open')
-        memory.set_data(6, 'close')
-        memory.set_data(7, 'end')
+- assign symbols to elements in memory that can appear in a given statement
 
-- assign variable symbols to elements
-
-        memory.set_variable('&', 0, 'operator')
-        memory.set_variable('|', 1, 'operator')
-        memory.set_variable('a', 2, 'data')
-        memory.set_variable('b', 3, 'data')
-        memory.set_variable('c', 4, 'data')
-        memory.set_variable('(', 5, 'grammar')
-        memory.set_variable(')', 6, 'grammar')
-        memory.set_variable(';', 7, 'grammar')
+        memory.set_variable('a', 0, 'data')
+        memory.set_variable('b', 1, 'data')
+        memory.set_variable('&', 2, 'operator')
+        memory.set_variable('(', 3, 'grammar')
+        memory.set_variable(')', 4, 'grammar')
+        memory.set_variable(';', 5, 'grammar')
 
 - create parser
 
         parser = Parser()
 
-- define symbol types
+- store valid sets of characters for each symbol-type
 
         parser.add_type('grammar','();')
         parser.add_type('number','1234567890')
@@ -51,7 +45,7 @@ __EXAMPLE CODE__:
         parser.add_type('data','abcdefghijklmnopqrstuvwxyz')
 
 
-- store valid consequtive pairs of symbol types
+- store valid pairs of symbol-types that can appear consequtively in a given statement
 
         parser.add_rule(('operator','operator'))
         parser.add_rule(('grammar','none'))
