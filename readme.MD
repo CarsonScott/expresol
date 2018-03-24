@@ -1,3 +1,3 @@
 # expresol
 
-A framework for creating, writing, and executing script-languages in python
+A framework for creating and executing script-languages in python
