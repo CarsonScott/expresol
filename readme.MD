@@ -1,3 +1,3 @@
 # expresol
 
-A flexible python framework that allows user-defined languages to be executed within python
+A framework for creating, writing, and executing script-languages in python
