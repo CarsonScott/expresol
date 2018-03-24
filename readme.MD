@@ -7,6 +7,7 @@ A flexible library for creating script-languages in python
 __EXAMPLE CODE__:
 
 - import library
+        
         from expresol import Memory, Parser
 
 - create memory with 10 elements
