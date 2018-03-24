@@ -45,7 +45,7 @@ __EXAMPLE CODE__:
         parser.add_type('data','abcdefghijklmnopqrstuvwxyz')
 
 
-- store valid pairs of symbol-types that can appear consequtively in a given statement
+- store valid pairs of symbol-types that can appear consecutively in a given statement
 
         parser.add_rule(('operator','operator'))
         parser.add_rule(('grammar','none'))
