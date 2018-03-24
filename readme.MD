@@ -1,6 +1,6 @@
 # expresol
 
-*A flexible library for creating script-languages in python*
+A flexible library for creating script-languages in python
 
 ---
 
