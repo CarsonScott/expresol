@@ -1,6 +1,6 @@
 # expresol
 
-A flexible library for creating script-languages in python
+An easy-to-use python library for creating, translating and executing statements in a user-defined language. The expresol library contains two main parts, namely the memory and the parser. Each contributes differently to the process of translating and then executing the instructions given by a statement.
 
 ---
 
