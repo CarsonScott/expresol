@@ -16,7 +16,7 @@ __EXAMPLE CODE__:
 
 - store functions, data structures, and syntax information in memory  
 
-        emory.set_data(0, True)
+        memory.set_data(0, True)
         memory.set_data(1, True)
         
         memory.set_data(2, AND)
