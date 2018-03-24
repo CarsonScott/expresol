@@ -1,21 +1,36 @@
+from .Data import *
+
+class Operator:
+	def __init__(self, function=None, inputs=[]):
+		self.inputs = inputs
+		self.function = function
+	
+	def __call__(self):
+		return self.function(self.inputs)
+
 class Parser:	
 	def __call__(self, script, memory):
 		objects = self.parse(script, self.rules)
 		model = self.convert(objects, memory)
 		val = self.run(model)
 		return val
+	
 	def __init__(self):
 		self.types = []
 		self.rules = []
 		self.vocab = []	
+	
 	def add_rule(self, rule):
 		self.rules.append(rule)
+	
 	def add_type(self, name, vocab):
 		self.types.append(name)
 		self.vocab.append(vocab)	
+	
 	def run(self, model):
 		output = execute(model)
 		return output
+	
 	def parse(self, script, rules):
 		labels = []
 		script = combine(revise(script))
@@ -23,6 +38,7 @@ class Parser:
 			labels.append(assign_labels(script, self.vocab[i], self.types[i]))
 		objects = combine_elements(script, merge(labels), rules)
 		return objects
+	
 	def convert(self, objects, memory):
 		data = convert_objects(objects, memory)
 		boundaries =define_boundaries(data)
@@ -34,11 +50,13 @@ def contains(r1, r2):
 	i1, f1 = r1
 	i2, f2 = r2
 	return i1 < i2 and f1 > f2
+
 def combine(strings):
 	string = ''
 	for i in range(len(strings)):
 		string += strings[i]
 	return string
+
 def revise(statement):
 	strings = []
 	string = ''
@@ -53,6 +71,7 @@ def revise(statement):
 		else:
 			string += char
 	return strings
+
 def merge(sets):
 	outputs = []
 	for i in range(len(sets[0])):
@@ -66,6 +85,7 @@ def merge(sets):
 			output = labels[0]
 		outputs.append(output)
 	return outputs
+
 def assign_labels(statement, symbols, label):
 	markers = []
 	for i in range(len(statement)):
@@ -75,6 +95,7 @@ def assign_labels(statement, symbols, label):
 			marker = label
 		markers.append(marker)
 	return markers
+
 def combine_elements(statement, markers, rules):
 	pc = ''
 	pm = 'none'
@@ -93,6 +114,7 @@ def combine_elements(statement, markers, rules):
 		pc = c
 		pm = m
 	return strings
+
 def convert_objects(objects, system):
 	elements = []
 	for i in range(len(objects)):
@@ -102,6 +124,7 @@ def convert_objects(objects, system):
 		val = Get(dat)
 		elements.append(val)
 	return elements
+
 def define_boundaries(elements):
 	indices = []
 	markers = []
@@ -120,6 +143,7 @@ def define_boundaries(elements):
 				del markers[len(markers)-1]	
 		else:boundaries.append((i, i))
 	return boundaries
+
 def assign_containers(boundaries):
 	containers = []
 	for i in range(len(boundaries)):
@@ -146,6 +170,7 @@ def assign_containers(boundaries):
 				indices.append(containers[i][j])
 		containers[i] = indices
 	return containers
+
 def generate(boundaries, containers, objects, index=None):
 	if index == None:
 		index = len(containers)-1
@@ -162,6 +187,7 @@ def generate(boundaries, containers, objects, index=None):
 			for j in range(i, f):
 				if objects[j] not in ['open', 'close']:
 					outputs.append(objects[j])
+
 def execute(model):
 	for i in range(len(model)):
 		if isinstance(model, list):
