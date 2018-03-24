@@ -2,12 +2,19 @@
 
 *A flexible library for creating script-languages in python*
 
+<<<<<<< HEAD
 ---
 
 __EXAMPLE CODE__:
 
 - import library
 		from expresol import Memory, Parser
+=======
+__EXAMPLE CODE__:
+
+- import library
+	from expresol import Memory, Parser
+>>>>>>> 9bda6832f526b720f8351fbfb154866459548db4
 
 - create memory with 10 elements
 
