@@ -34,11 +34,11 @@ __EXAMPLE CODE__:
         memory.var(')', 4, 'grammar')
         memory.var(';', 5, 'grammar')
 
-- create parser with 4 symbol classes
+- create parser with 4 data types
 
         parser = Parser(['grammar', 'data', 'operator', 'number'])
 
-- store sets of characters for each class that are valid when combined to form symbols
+- store sets of characters for each type that are valid when used to form symbols that are assigned to instances of said type
 
         parser.type('grammar','();')
         parser.type('number','1234567890')
