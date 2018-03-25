@@ -11,16 +11,16 @@ __EXAMPLE CODE__:
         from expresol import *
         memory = Memory(10)
 
-- store functions, data structures, and syntax information in memory  
+- store functions, data, and syntax markers in memory  
 
         memory.dat(0, True)
         memory.dat(1, True)
         memory.dat(2, AND)
-        memory.dat(3, 'open')
-        memory.dat(4, 'close')
-        memory.dat(5, 'end')
+        memory.var(3, Marker('open'))
+        memory.var(4, Marker('close'))
+        memory.var(5, Marker('end'))
 
-- assign symbols to elements that allow their data to be accessed when observed in a statement 
+- assign symbols to elements that allow data to be accessed when observed in a statement 
 
         memory.var('x1', 0, 'data')
         memory.var('x2', 1, 'data')
@@ -29,18 +29,15 @@ __EXAMPLE CODE__:
         memory.var(')', 4, 'grammar')
         memory.var(';', 5, 'grammar')
 
-- create parser with 4 data types
+- create parser and store data types with characters that are used to form valid symbols for instances of each type
 
-        parser = Parser(['grammar', 'data', 'operator', 'number'])
+        parser = Parser()
+        parser.type('grammar', '();')
+        parser.type('operator', '&|!+-*/=')
+        parser.type('number', '1234567890')
+        parser.type('data', 'abcdefghijklmnopqrstuvwxyz')
 
-- store sets of characters that are valid in the formation of symbols assigned to instances of each type
-
-        parser.type('grammar','();')
-        parser.type('number','1234567890')
-        parser.type('operator','&|!+-*/=')
-        parser.type('data','abcdefghijklmnopqrstuvwxyz')
-
-- store pairs of classes that are valid when observed consecutively in a given statement
+- store pairs of data types that reflect the valid transitions between consecutive elements in a statement
 
         parser.rule('operator','operator')
         parser.rule('grammar','none')
