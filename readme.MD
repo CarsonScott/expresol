@@ -6,12 +6,9 @@ An easy-to-use python library for creating, translating and executing statements
 
 __EXAMPLE CODE__:
 
-- import library
+- import library and create memory with 10 elements
         
         from expresol import *
-
-- create memory with 10 elements
-
         memory = Memory(10)
 
 - store functions, data structures, and syntax information in memory  
@@ -19,7 +16,6 @@ __EXAMPLE CODE__:
         memory.dat(0, True)
         memory.dat(1, True)
         memory.dat(2, AND)
-
         memory.dat(3, 'open')
         memory.dat(4, 'close')
         memory.dat(5, 'end')
@@ -29,7 +25,6 @@ __EXAMPLE CODE__:
         memory.var('x1', 0, 'data')
         memory.var('x2', 1, 'data')
         memory.var('&', 2, 'operator')
-
         memory.var('(', 3, 'grammar')
         memory.var(')', 4, 'grammar')
         memory.var(';', 5, 'grammar')
