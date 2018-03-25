@@ -52,3 +52,6 @@ __EXAMPLE CODE__:
 
         statement = "(x1 & x2);"
         output = parser(statement, memory)
+
+__Output = True__
+        
