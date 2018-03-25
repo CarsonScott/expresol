@@ -16,25 +16,25 @@ __EXAMPLE CODE__:
 
 - store functions, data structures, and syntax information in memory  
 
-        memory.set_data(0, True)
-        memory.set_data(1, True)
+        memory.dat(0, True)
+        memory.dat(1, True)
         
-        memory.set_data(2, AND)
+        memory.dat(2, AND)
 
-        memory.set_data(3, 'open')
-        memory.set_data(4, 'close')
-        memory.set_data(5, 'end')
+        memory.dat(3, 'open')
+        memory.dat(4, 'close')
+        memory.dat(5, 'end')
 
 - assign symbols to elements that allow their data to be accessed when observed in a statement 
 
-        memory.set_variable('a', 0, 'data')
-        memory.set_variable('b', 1, 'data')
+        memory.var('a', 0, 'data')
+        memory.var('b', 1, 'data')
         
-        memory.set_variable('&', 2, 'operator')
+        memory.var('&', 2, 'operator')
  
-        memory.set_variable('(', 3, 'grammar')
-        memory.set_variable(')', 4, 'grammar')
-        memory.set_variable(';', 5, 'grammar')
+        memory.var('(', 3, 'grammar')
+        memory.var(')', 4, 'grammar')
+        memory.var(';', 5, 'grammar')
 
 - create parser with 4-classes of symbols
 
@@ -42,18 +42,18 @@ __EXAMPLE CODE__:
 
 - store valid sets of characters for each class
 
-        parser.add_type('grammar','();')
-        parser.add_type('number','1234567890')
-        parser.add_type('operator','&|!+-*/=')
-        parser.add_type('data','abcdefghijklmnopqrstuvwxyz')
+        parser.type('grammar','();')
+        parser.type('number','1234567890')
+        parser.type('operator','&|!+-*/=')
+        parser.type('data','abcdefghijklmnopqrstuvwxyz')
 
 - store pairs of classes that are valid when observed consequetively in a given statement
 
-        parser.add_rule(('operator','operator'))
-        parser.add_rule(('grammar','none'))
-        parser.add_rule(('none','grammar'))
-        parser.add_rule(('data','number'))
-        parser.add_rule(('data','data'))
+        parser.rule('operator','operator')
+        parser.rule('grammar','none')
+        parser.rule('none','grammar')
+        parser.rule('data','number')
+        parser.rule('data','data')
 
 - execute statement
 
