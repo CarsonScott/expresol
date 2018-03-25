@@ -5,17 +5,18 @@ class Memory:
 		self.store = list()
 		self.table = dict()
 		for i in range(size):
-			self.store.append(Data())
+			self.store.append(None)
 	
-	def get_data(self, index):
-		return Get(self.store[index])
+	def dat(self, index, value):
+		self.store[index] = Data(value)
 	
-	def set_data(self, index, value):
-		Set(self.store[index], value)
-	
-	def get_variable(self, name):
-		return self.table[name]
-	
-	def set_variable(self, name, index, type):
-		pointer = Reference(index, self.store)
-		self.table[name] = Variable(name, pointer, type)
+	def var(self, name, index, type):
+		self.table[name] = Variable(name, index, type)
+
+	def get_var(self, name):
+		var = self.table[name]
+		return var
+
+	def get_dat(self, index):
+		dat = self.store[index]
+		return dat

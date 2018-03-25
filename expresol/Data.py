@@ -4,15 +4,10 @@ def Data(value=None, type=None):
 	y['value'] = value
 	return y
 
-def Reference(index=None, memory=None):
-	y = Data(memory[index], 'reference')
-	y['index'] = index
-	return y
-
-def Variable(name=None, reference=None, subtype=None):
-	y = Data(reference, 'variable')
-	y['class'] = subtype
+def Variable(name=None, index=None, type=None):
+	y = Data(index, 'variable')
 	y['name'] = name
+	y['class'] = type
 	return y
 
 def Get(data):
@@ -24,9 +19,6 @@ def Set(data, value):
 
 def Type(data):
 	return data['type']
-
-def Index(data):
-	return data['index']
 
 def Name(data):
 	return data['name']

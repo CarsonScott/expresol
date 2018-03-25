@@ -9,33 +9,29 @@ class Operator:
 		return self.function(self.inputs)
 
 class Parser:	
+	def __init__(self, types=[]):
+		self.vocab = {}
+		self.rules = []
+		for i in range(len(types)):
+			self.vocab[types[i]] = None
+	
 	def __call__(self, script, memory):
 		objects = self.parse(script, self.rules)
 		model = self.convert(objects, memory)
-		val = self.run(model)
-		return val
+		return execute(model)
+
+	def rule(self, type1, type2):
+		self.rules.append((type1, type2))
 	
-	def __init__(self):
-		self.types = []
-		self.rules = []
-		self.vocab = []	
-	
-	def add_rule(self, rule):
-		self.rules.append(rule)
-	
-	def add_type(self, name, vocab):
-		self.types.append(name)
-		self.vocab.append(vocab)	
-	
-	def run(self, model):
-		output = execute(model)
-		return output
-	
+	def type(self, name, chars):
+		self.vocab[name] = chars
+		
 	def parse(self, script, rules):
 		labels = []
+		types = list(self.vocab.keys())
 		script = combine(revise(script))
-		for i in range(len(self.types)):
-			labels.append(assign_labels(script, self.vocab[i], self.types[i]))
+		for i in range(len(types)):
+			labels.append(assign_labels(script, self.vocab[types[i]], types[i]))
 		objects = combine_elements(script, merge(labels), rules)
 		return objects
 	
@@ -118,11 +114,12 @@ def combine_elements(statement, markers, rules):
 def convert_objects(objects, system):
 	elements = []
 	for i in range(len(objects)):
-		var = system.get_variable(objects[i])
-		ptr = Get(var)
-		dat = Get(ptr)
-		val = Get(dat)
-		elements.append(val)
+		name = objects[i]
+		var = system.get_var(name)
+		index = Get(var)
+		dat = system.get_dat(index)
+		value = Get(dat)
+		elements.append(value)
 	return elements
 
 def define_boundaries(elements):
