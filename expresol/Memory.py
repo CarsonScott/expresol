@@ -7,16 +7,18 @@ class Memory:
 		for i in range(size):
 			self.store.append(None)
 	
-	def dat(self, index, value):
-		self.store[index] = Data(value)
+	def var(self, index, value):
+		self.store[index] = Variable(value)
 	
-	def var(self, name, index, type):
-		self.table[name] = Variable(name, index, type)
+	def ref(self, index, symbol, datatype):
+		self.table[symbol] = Reference(index, symbol, datatype)
 
-	def get_var(self, name):
-		var = self.table[name]
-		return var
-
-	def get_dat(self, index):
-		dat = self.store[index]
-		return dat
+	def get(self, obj):
+		if isinstance(obj, str):
+			obj = self.table[obj]
+		if isinstance(obj, Reference):
+			index = obj['index']
+			var = self.store[index]
+			obj['value'] = var['value']
+		return obj
+			

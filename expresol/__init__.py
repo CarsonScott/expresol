@@ -1,5 +1,6 @@
 from .Memory import Memory
-from .Parser import Parser, Operator
+from .Parser import Parser
+from .Data import Marker, Operator
 
 def TRUE(X):	
 	if len(X) != 1:raise Exception()

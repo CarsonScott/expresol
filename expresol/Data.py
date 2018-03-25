@@ -1,27 +1,31 @@
-def Data(value=None, type=None):
-	y = dict()
-	y['type'] = type
-	y['value'] = value
-	return y
+class Marker(dict):
+	def __init__(self, label):
+		self['label'] = label
 
-def Variable(name=None, index=None, type=None):
-	y = Data(index, 'variable')
-	y['name'] = name
-	y['class'] = type
-	return y
+class Operator(dict):
+	def __init__(self, function=None, inputs=[]):
+		self['function'] = function
+		self['inputs'] = inputs
+	def __call__(self, inputs):
+		self['inputs'] = inputs
+		return self.compute()
+	def compute(self):
+		return self['function'](self['inputs'])
 
-def Get(data):
-	return data['value']
+class Variable(dict):
+	def __init__(self, value=None):
+		self['value'] = value
 
-def Set(data, value):
-	data['value'] = value
-	return data
+class Pointer(dict):
+	def __init__(self, symbol=None, index=None):
+		self['symbol'] = symbol
+		self['index'] = index
 
-def Type(data):
-	return data['type']
+class Reference(dict):
+	def __init__(self, index=None, symbol=None, datatype=None, value=None):
+		self['symbol'] = symbol
+		self['index'] = index
+		self['type'] = datatype
+		self['value'] = value
 
-def Name(data):
-	return data['name']
-
-def Class(data):
-	return data['class']
+		

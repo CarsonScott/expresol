@@ -1,13 +1,5 @@
 from .Data import *
 
-class Operator:
-	def __init__(self, function=None, inputs=[]):
-		self.inputs = inputs
-		self.function = function
-	
-	def __call__(self):
-		return self.function(self.inputs)
-
 class Parser:	
 	def __init__(self, types=[]):
 		self.vocab = {}
@@ -16,9 +8,9 @@ class Parser:
 			self.vocab[types[i]] = None
 	
 	def __call__(self, script, memory):
-		objects = self.parse(script, self.rules)
-		model = self.convert(objects, memory)
-		return execute(model)
+		data = self.parse(script)
+		model = self.convert(data, memory)
+		return self.execute(model)
 
 	def rule(self, type1, type2):
 		self.rules.append((type1, type2))
@@ -26,13 +18,13 @@ class Parser:
 	def type(self, name, chars):
 		self.vocab[name] = chars
 		
-	def parse(self, script, rules):
+	def parse(self, script):
 		labels = []
 		types = list(self.vocab.keys())
 		script = combine(revise(script))
 		for i in range(len(types)):
 			labels.append(assign_labels(script, self.vocab[types[i]], types[i]))
-		objects = combine_elements(script, merge(labels), rules)
+		objects = combine_elements(script, merge(labels), self.rules)
 		return objects
 	
 	def convert(self, objects, memory):
@@ -41,6 +33,28 @@ class Parser:
 		containers = assign_containers(boundaries)
 		model = generate(boundaries, containers, data)
 		return model
+
+	def execute(self, model):
+		for i in range(len(model)):
+			if isinstance(model, list):
+				function = None
+				inputs = list()
+
+				if len(model) == 1:
+					function = ID
+					inputs = [model[0]]
+				elif len(model) == 2:
+					function = model[0]
+					inputs = [model[1]]
+				elif len(model) == 3:
+					function = model[1]
+					inputs = [model[0], model[2]]
+
+				operator = Operator(function)
+				for j in range(len(inputs)):
+					if isinstance(inputs[j], list):
+						inputs[j] = self.execute(inputs[j])
+				return operator(inputs)
 
 def contains(r1, r2):
 	i1, f1 = r1
@@ -111,15 +125,11 @@ def combine_elements(statement, markers, rules):
 		pm = m
 	return strings
 
-def convert_objects(objects, system):
+def convert_objects(objects, memory):
 	elements = []
 	for i in range(len(objects)):
-		name = objects[i]
-		var = system.get_var(name)
-		index = Get(var)
-		dat = system.get_dat(index)
-		value = Get(dat)
-		elements.append(value)
+		symbol = objects[i]
+		elements.append(memory.get(symbol))
 	return elements
 
 def define_boundaries(elements):
@@ -127,18 +137,21 @@ def define_boundaries(elements):
 	markers = []
 	boundaries = []
 	for i in range(len(elements)):
-		element = elements[i]
-		if element == 'open':
-			indices.append(i)
-			markers.append(element)
-		elif element == 'close':
-			pm = markers[len(markers)-1]
-			if pm == 'open':
-				pi = indices[len(indices)-1]
-				boundaries.append((pi, i))
-				del indices[len(indices)-1]
-				del markers[len(markers)-1]	
-		else:boundaries.append((i, i))
+		data = elements[i]['value']
+		if isinstance(data, Marker) and data['label'] != 'end':
+			if data['label'] == 'open':
+				indices.append(i)
+				markers.append(data['label'])
+		
+			elif data['label'] == 'close':
+				pm = markers[len(markers)-1]
+				if pm == 'open':
+					pi = indices[len(indices)-1]
+					boundaries.append((pi, i))
+					del indices[len(indices)-1]
+					del markers[len(markers)-1]	
+		else:
+			boundaries.append((i, i))
 	return boundaries
 
 def assign_containers(boundaries):
@@ -179,26 +192,9 @@ def generate(boundaries, containers, objects, index=None):
 		return outputs	
 	else:
 		i,f = boundaries[index]
-		if i == f:return objects[i]
+		if i == f:
+			return objects[i]['value']
 		else:
 			for j in range(i, f):
-				if objects[j] not in ['open', 'close']:
-					outputs.append(objects[j])
-
-def execute(model):
-	for i in range(len(model)):
-		if isinstance(model, list):
-			operator = Operator()
-			if len(model) == 1:
-				operator.function = ID
-				operator.inputs = [model[0]]
-			elif len(model) == 2:
-				operator.function = model[0]
-				operator.inputs = [model[1]]
-			elif len(model) == 3:
-				operator.function = model[1]
-				operator.inputs = [model[0], model[2]]
-			for j in range(len(operator.inputs)):
-				if isinstance(operator.inputs[j], list):
-					operator.inputs[j] = execute(operator.inputs[j])
-			return operator()
+				if isinstance(objects[j], Marker) == False:
+					outputs.append(objects[j]['value'])
