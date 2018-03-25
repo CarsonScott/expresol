@@ -26,8 +26,8 @@ __EXAMPLE CODE__:
 
 - assign symbols to elements that allow their data to be accessed when observed in a statement 
 
-        memory.var('a', 0, 'data')
-        memory.var('b', 1, 'data')
+        memory.var('x1', 0, 'data')
+        memory.var('x2', 1, 'data')
         memory.var('&', 2, 'operator')
  
         memory.var('(', 3, 'grammar')
@@ -55,7 +55,7 @@ __EXAMPLE CODE__:
 
 - convert and execute statement
 
-        statement = '(a & b);'
+        statement = '(x1 & x2);'
         output = parser(statement, memory)
         
 *output: True*
