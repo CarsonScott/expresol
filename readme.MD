@@ -1,6 +1,6 @@
 # expresol
 
-Expresol is an easy-to-use python library for creating, translating and executing statements in a user-defined language. The expresol library contains two main parts, namely the memory and the parser. Each contributes differently to the process of translating and then executing the instructions given by a statement.
+Expresol is an easy-to-use python library for creating, parsing and executing statements in a user-defined language. The expresol library contains two main parts, namely the memory class and the parser class, which collectively work as a system of information that is accessed and manipulated through statements, where each statement is converted into hierarchical sets of instructions and then  executed recursively until the top-level instruction produces an output. 
 
 ---
 
@@ -8,7 +8,7 @@ __EXAMPLE CODE__:
 
 - import library and create memory with 10 elements
         
-        from expresol import *
+        from expresol import *tha
         memory = Memory(10)
 
 - store functions, data, and syntax markers in memory  
