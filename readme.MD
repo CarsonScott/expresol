@@ -29,7 +29,7 @@ __EXAMPLE CODE__:
         memory.var('x1', 0, 'data')
         memory.var('x2', 1, 'data')
         memory.var('&', 2, 'operator')
- 
+
         memory.var('(', 3, 'grammar')
         memory.var(')', 4, 'grammar')
         memory.var(';', 5, 'grammar')
@@ -38,14 +38,14 @@ __EXAMPLE CODE__:
 
         parser = Parser(['grammar', 'data', 'operator', 'number'])
 
-- store characters for each type that are valid when used to form the symbols for instances of said type
+- define sets of characters that are valid in the formation of symbols assigned to instances of each type
 
         parser.type('grammar','();')
         parser.type('number','1234567890')
         parser.type('operator','&|!+-*/=')
         parser.type('data','abcdefghijklmnopqrstuvwxyz')
 
-- store pairs of classes that are valid when observed consecutively in statements
+- store pairs of classes that are valid when observed consecutively in a statement
 
         parser.rule('operator','operator')
         parser.rule('grammar','none')
@@ -56,5 +56,6 @@ __EXAMPLE CODE__:
 - define and execute statement
 
         statement = "(x1 & x2);"
+        
         parser(statement, memory)
         >>> True
