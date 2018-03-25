@@ -38,7 +38,7 @@ __EXAMPLE CODE__:
 
         parser = Parser(['grammar', 'data', 'operator', 'number'])
 
-- store sets of characters for each type that are valid when used to form symbols that are assigned to instances of said type
+- store characters for each type that are valid when used to form the symbols for instances of said type
 
         parser.type('grammar','();')
         parser.type('number','1234567890')
@@ -56,6 +56,5 @@ __EXAMPLE CODE__:
 - convert and execute statement
 
         statement = '(x1 & x2);'
-        output = parser(statement, memory)
-        
-*output: True*
+        parser(statement, memory)
+        >>> True
