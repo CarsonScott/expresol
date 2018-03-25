@@ -53,8 +53,8 @@ __EXAMPLE CODE__:
         parser.rule('data','number')
         parser.rule('data','data')
 
-- convert and execute statement
+- define and execute statement
 
-        statement = '(x1 & x2);'
+        statement = "(x1 & x2);"
         parser(statement, memory)
         >>> True
