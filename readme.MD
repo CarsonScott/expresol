@@ -6,7 +6,7 @@ An easy-to-use python library for creating, translating and executing statements
 
 __EXAMPLE CODE__:
 
-- import expresol library
+- import library
         
         from expresol import *
 
@@ -38,14 +38,14 @@ __EXAMPLE CODE__:
 
         parser = Parser(['grammar', 'data', 'operator', 'number'])
 
-- define sets of characters that are valid in the formation of symbols assigned to instances of each type
+- store sets of characters that are valid in the formation of symbols assigned to instances of each type
 
         parser.type('grammar','();')
         parser.type('number','1234567890')
         parser.type('operator','&|!+-*/=')
         parser.type('data','abcdefghijklmnopqrstuvwxyz')
 
-- store pairs of classes that are valid when observed consecutively in a statement
+- store pairs of classes that are valid when observed consecutively in a given statement
 
         parser.rule('operator','operator')
         parser.rule('grammar','none')
@@ -56,6 +56,4 @@ __EXAMPLE CODE__:
 - define and execute statement
 
         statement = "(x1 & x2);"
-        
-        parser(statement, memory)
-        >>> True
+        output = parser(statement, memory)
