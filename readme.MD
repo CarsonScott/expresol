@@ -8,7 +8,7 @@ __EXAMPLE CODE__:
 
 - import expresol library
         
-        from expresol import Memory, Parser, AND
+        from expresol import *
 
 - create memory with 10 elements
 
@@ -18,7 +18,6 @@ __EXAMPLE CODE__:
 
         memory.dat(0, True)
         memory.dat(1, True)
-        
         memory.dat(2, AND)
 
         memory.dat(3, 'open')
@@ -29,25 +28,24 @@ __EXAMPLE CODE__:
 
         memory.var('a', 0, 'data')
         memory.var('b', 1, 'data')
-        
         memory.var('&', 2, 'operator')
  
         memory.var('(', 3, 'grammar')
         memory.var(')', 4, 'grammar')
         memory.var(';', 5, 'grammar')
 
-- create parser with 4-classes of symbols
+- create parser with 4 symbol classes
 
         parser = Parser(['grammar', 'data', 'operator', 'number'])
 
-- store valid sets of characters for each class
+- store sets of characters for each class that are valid when combined to form symbols
 
         parser.type('grammar','();')
         parser.type('number','1234567890')
         parser.type('operator','&|!+-*/=')
         parser.type('data','abcdefghijklmnopqrstuvwxyz')
 
-- store pairs of classes that are valid when observed consequetively in a given statement
+- store pairs of classes that are valid when observed consecutively in statements
 
         parser.rule('operator','operator')
         parser.rule('grammar','none')
@@ -55,7 +53,7 @@ __EXAMPLE CODE__:
         parser.rule('data','number')
         parser.rule('data','data')
 
-- execute statement
+- convert and execute statement
 
         statement = '(a & b);'
         output = parser(statement, memory)
