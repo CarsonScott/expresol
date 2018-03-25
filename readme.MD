@@ -13,21 +13,21 @@ __EXAMPLE CODE__:
 
 - store functions, data, and syntax markers in memory  
 
-        memory.dat(0, True)
-        memory.dat(1, True)
-        memory.dat(2, AND)
-        memory.var(3, Marker('open'))
-        memory.var(4, Marker('close'))
-        memory.var(5, Marker('end'))
+        memory.var(0, Marker('open'))
+        memory.var(1, Marker('close'))
+        memory.var(2, Marker('end'))
+        memory.var(3, AND)
+        memory.var(4, True)
+        memory.var(5, True)
 
 - assign symbols to elements that allow data to be accessed when observed in a statement 
 
-        memory.var('x1', 0, 'data')
-        memory.var('x2', 1, 'data')
-        memory.var('&', 2, 'operator')
-        memory.var('(', 3, 'grammar')
-        memory.var(')', 4, 'grammar')
-        memory.var(';', 5, 'grammar')
+        memory.ref(0, '(', 'grammar')
+        memory.ref(1, ')', 'grammar')
+        memory.ref(2, ';', 'grammar')
+        memory.ref(3, '&', 'operator')
+        memory.ref(4, 'x1', 'data')
+        memory.ref(5, 'x2', 'data')
 
 - create parser and store data types with characters that are used to form valid symbols for instances of each type
 
