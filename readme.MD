@@ -6,7 +6,7 @@ Expresol is an easy-to-use ibrary for executing customizable script-languages in
 
 containing three elements, 'a', '+' and 'b', where middle element denotes an operator and the rest denote variables. The second possible structure is:
 
-    (~a)
+    (~ a)
 
 containing two elements, '~" and 'a', where The left symbol denotes an operator and the right denotes a variable. The last possible structure is:
 
