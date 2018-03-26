@@ -20,7 +20,7 @@ __EXAMPLE CODE__:
 
 - import library and create memory with 10 elements
         
-        from expresol import *tha
+        from expresol import *
         memory = Memory(10)
 
 - store functions, data, and syntax markers in memory  
