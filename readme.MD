@@ -2,15 +2,15 @@
 
 Expresol is an easy-to-use ibrary for executing customizable script-languages in python. The expresol library contains two main components, the memory and the parser, which collectively work as an information system whose data is accessible via statements that manipulate stored variables when executed. Each statement is converted to an executable form containing hierarchical sets of operators and data. Each set contains a set of elements, corresponding to either variables or operators. The most common possible structure of a valid statement is as folliows: 
 
-        (a + b)
+    (a + b)
 
 containing three elements, 'a', '+' and 'b', where middle element denotes an operator and the rest denote variables. The second possible structure is:
 
-        (~a)
+    (~a)
 
 containing two elements, '~" and 'a', where The left symbol denotes an operator and the right denotes a variable. The last possible structure is:
 
-        (a)
+    (a)
 
 in which there is one element, 'a', where the symbol denotes a variable. The identity function is assigned by default if no operator is present, meaning the output of this statement simply returns the value of 'a'. 
 
